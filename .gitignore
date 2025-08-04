@@ -1,0 +1,34 @@
+# IntelliJ IDEA project files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Build artifacts
+out/
+target/
+build/
+
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# Maven and Gradle build files
+.gradle/
+gradle/
+!gradle-wrapper.jar # Keep the wrapper JAR
+.project
+.classpath
+.settings/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Other common ignore patterns
+*.swp
+*.bak
+*.orig
+

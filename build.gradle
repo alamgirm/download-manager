@@ -1,0 +1,71 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.0'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+// Use Gradle 8.x compatibility
+wrapper {
+    gradleVersion = '8.5'
+}
+
+group = 'com.downloadmanager'
+version = '1.0.0'
+description = 'A JDownloader-like command line download manager with async queue processing'
+
+java {
+    sourceCompatibility = '21'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "com.google.cloud:spring-cloud-gcp-dependencies:4.8.4"
+    }
+}
+
+dependencies {
+    // Spring Boot Starters
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-logging'
+    
+    // OkHttp3 for HTTP client (same as JDownloader uses)
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    
+    // Lombok for reducing boilerplate code
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    
+    // Configuration processor
+    compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    
+    // Test dependencies
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+// Exclude configuration processor from the final jar
+jar {
+    enabled = false
+}
+
+bootJar {
+    enabled = true
+} 
